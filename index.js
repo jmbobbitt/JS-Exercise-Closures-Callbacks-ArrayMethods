@@ -119,14 +119,41 @@ and returns the score at each pont in the game, like so:
 Final Score: awayTeam - homeTeam */
 
 
-function scoreboard(getInningScore, inning) {
+// function scoreboard(getInningScore, inningFunc, numOfInning) 
+// {
+//    let getInningScore = 0
+//    for ( let i = 0; i < numOfInning; i++)
+//     inningFunc = 
    
-  getInningScore (); finalScore()/9, 
-  inning 
-  { 
-    return `1st inning: Away ${awayScore}, Home ${homeScore}` 
-  }
+//    (`${numOfInning}inning: ${awayScore} awayTeam -  ${homeScore} homeTeam`), 
+
+
+// }
+
+
+//console.log(scoreboard(1))
+
+function scoreboard(cb, numOfInning) {
+  let currentInning = 1; 
+  const scoreList = new Array(numOfInning + 1).fill({Home:0, Away: 0}); 
+  return () => {
+    if (currentInning > numOfInning)
+      return `Final Score: Away: ${scoreList[numOfInning].Away} - Home: ${scoreList[numOfInning].Home}`;
+      const Away = cb() + scoreList[currentInning-1].Away;  
+      const Home = cb() + scoreList[currentInning-1].Home;  
+    scoreList[currentInning] = {Home, Away}; 
+    return `${currentInning++} inning: Away ${Away} - Home: ${Home}`; 
+    };
 }
+const sb = scoreboard(inning, 9); 
 
-console.log(scoreboard())
-
+console.log(sb());
+console.log(sb());
+console.log(sb());
+console.log(sb());
+console.log(sb());
+console.log(sb());
+console.log(sb());
+console.log(sb());
+console.log(sb());
+console.log(sb());
